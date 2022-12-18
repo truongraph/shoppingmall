@@ -1,4 +1,15 @@
 <?php echo form_open_multipart('admin/category/insert'); ?>
+<?php  
+				$list = $this->Mcategory->category_list();
+				$option_parentid = "";
+				foreach ($list as $r) {
+					if ($r['id'] == $row['parentid']) {
+						$option_parentid .= "<option selected value='" . $r['id'] . "'>" . $r['name'] . "</option>";
+					} else {
+						$option_parentid .= "<option value='" . $r['id'] . "'>" . $r['name'] . "</option>";
+					}
+				}
+							?>
 <div class="container-fluid">
 	<div class="d-flex align-items-baseline justify-content-between mb-5">
 		<!-- Breadcrumb -->
@@ -11,6 +22,7 @@
 		</nav>
 	</div>
 	<form action="<?php echo base_url() ?>admin/category/insert.html" enctype="multipart/form-data" method="POST" accept-charset="utf-8">
+	
 		<div class="row">
 			<div class="col d-flex">
 				<!-- Card -->
@@ -41,15 +53,7 @@
 								<div class="error" id="password_error"><?php echo form_error('name')?></div>
 								</div>
 							</div>
-							<?php  
-							$list=$this->Mcategory->category_list();
-							$option_parentid="";
-							$option_orders="";
-							foreach ($list as $row) {
-								$option_parentid.="<option value='".$row['id']."'>".$row['name']."</option>";
-								$option_orders.="<option value='".($row['orders']+1)."'>Đứng sau: ( ".$row['name']." )</option>";
-							}
-							?>
+						
 							<div class="col-lg-3">
 							<div class="mb-4">
 									<label for="validationCustom01" class="form-label">Danh mục cha <span class = "maudo">(*)</span></label>
